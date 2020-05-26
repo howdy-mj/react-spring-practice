@@ -1,21 +1,30 @@
 /** @jsx jsx */
-// import React from "react";
+import { useState } from "react";
 import { jsx, css } from "@emotion/core";
 import { useSpring, animated } from "react-spring";
 
 const currentTime = new Date();
-const year = currentTime.getFullYear();
-const month = currentTime.getMonth() + 1;
-const date = currentTime.getDate();
+const CURRENT_YEAR = currentTime.getFullYear();
+const CURRENT_MONTH = currentTime.getMonth() + 1;
+const CURRENT_DAY = currentTime.getDate();
 
 const App = () => {
+  const [year, setYear] = useState(0);
+  const [month, setMonth] = useState(0);
+  const [day, setDay] = useState(0);
   const showTime = useSpring({ opacity: 1, from: { opacity: 0 } });
+
+  const scrollTop = () => {
+    if (window.scrollY > 100) {
+      console.log("100");
+    }
+  };
   return (
     <div css={container}>
       <div css={time}>
         <animated.div style={showTime}>{year}</animated.div>
         <animated.div style={showTime}>{month}</animated.div>
-        <animated.div style={showTime}>{date}</animated.div>
+        <animated.div style={showTime}>{day}</animated.div>
       </div>
     </div>
   );
