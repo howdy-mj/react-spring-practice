@@ -60,9 +60,9 @@ const App = () => {
         <Spring
           config={{ delay: 2000 }}
           from={{
-            year: toZero ? 0 : CURRENT_YEAR,
-            month: toZero ? 0 : CURRENT_MONTH,
-            day: toZero ? 0 : CURRENT_DAY,
+            year: 0,
+            month: 0,
+            day: 0,
           }}
           to={{
             year: toZero ? 0 : CURRENT_YEAR,
@@ -73,8 +73,12 @@ const App = () => {
           {(props) => (
             <p>
               <span>
-                {Number(props.year.toFixed(0)) < 1000
+                {Number(props.year.toFixed(0)) < 10
                   ? `000${props.year.toFixed(0)}`
+                  : Number(props.year.toFixed(0)) < 100
+                  ? `00${props.year.toFixed(0)}`
+                  : Number(props.year.toFixed(0)) < 1000
+                  ? `0${props.year.toFixed(0)}`
                   : props.year.toFixed(0)}
               </span>
               <span>
