@@ -73,7 +73,7 @@ const App = () => {
           {(props) => (
             <p>
               <span>
-                {Number(props.year.toFixed(0)) < 999
+                {Number(props.year.toFixed(0)) < 1000
                   ? `000${props.year.toFixed(0)}`
                   : props.year.toFixed(0)}
               </span>
