@@ -12,13 +12,14 @@ const WIDHT = 1920;
 const HEIGHT = 1080;
 
 const wrap = css`
-  height: 3000px;
+  height: ${HEIGHT * 2}px;
 `;
 
 const container = css`
-  border: 1px solid red;
+  border: 1px solid green;
   width: ${WIDHT}px;
   height: ${HEIGHT}px;
+  position: relative;
 `;
 
 const time = css`
@@ -26,7 +27,8 @@ const time = css`
   font-weight: bold;
   width: ${WIDHT}px;
   text-align: center;
-  // margin-bottom: 100px;
+  position: absolute;
+  top: ${HEIGHT - 75}px;
 
   span {
     padding: 70px;
@@ -34,24 +36,26 @@ const time = css`
 `;
 
 const App = () => {
-  const [toZero, setToZero] = useState(true);
-
   const moveScroll = () => {
-    console.log("scroll");
     if (window.scrollY < HEIGHT * 0.1 || window.scrollY > HEIGHT * 0.9) {
-      console.log("0", window.scrollY);
       setToZero(true);
-      console.log("currentZero", toZero);
+      console.log("0으로");
     } else if (window.scrollY > HEIGHT * 0.1 || window.scrollY < HEIGHT * 0.9) {
-      console.log("날짜 표시", window.scrollY);
       setToZero(false);
-      console.log("currentZero", toZero);
+      console.log("숫자로");
     }
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", moveScroll);
+    return () => window.removeEventListener("scroll", moveScroll);
+  });
+
+  const [toZero, setToZero] = useState(true);
+
   return (
     <div css={wrap}>
-      <div css={container} onWheel={moveScroll}></div>
+      <div css={container}></div>
       <div css={time}>
         <Spring
           config={{ delay: 2000 }}
