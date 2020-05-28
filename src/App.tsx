@@ -3,11 +3,6 @@ import { useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import { Spring } from "react-spring/renderprops";
 
-const currentTime = new Date();
-const CURRENT_YEAR = currentTime.getFullYear();
-const CURRENT_MONTH = currentTime.getMonth() + 1;
-const CURRENT_DAY = currentTime.getDate();
-
 const WIDHT = 1920;
 const HEIGHT = 1080;
 
@@ -36,6 +31,9 @@ const time = css`
 `;
 
 const App = () => {
+  const [toZero, setToZero] = useState(true);
+  const currentTime = new Date();
+
   const moveScroll = () => {
     if (window.scrollY < HEIGHT * 0.1 || window.scrollY > HEIGHT * 0.9) {
       setToZero(true);
@@ -51,23 +49,21 @@ const App = () => {
     return () => window.removeEventListener("scroll", moveScroll);
   });
 
-  const [toZero, setToZero] = useState(true);
-
   return (
     <div css={wrap}>
       <div css={container}></div>
       <div css={time}>
         <Spring
-          config={{ delay: 2000 }}
+          config={{ delay: 1000 }}
           from={{
             year: 0,
             month: 0,
             day: 0,
           }}
           to={{
-            year: toZero ? 0 : CURRENT_YEAR,
-            month: toZero ? 0 : CURRENT_MONTH,
-            day: toZero ? 0 : CURRENT_DAY,
+            year: toZero ? 0 : currentTime.getFullYear(),
+            month: toZero ? 0 : currentTime.getMonth() + 1,
+            day: toZero ? 0 : currentTime.getDate(),
           }}
         >
           {(props) => (
